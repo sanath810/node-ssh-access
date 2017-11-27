@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: node-ssh-deployment
+  labels:
+    app: node-ssh
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: node-ssh
+  template:
+    metadata:
+      labels:
+        app: node-ssh
+    spec:
+      containers:
+      - name: alpine
+        image: alpine:latest
+        ports:
+        - containerPort: 22
+        command: ["/bin/sh", "-c", "--"]
+        args: ["while true; do sleep 30; done;"]
+      hostNetwork: true
